@@ -24,7 +24,7 @@
                     <td>{{ forloop.counter }}</td>
                     <td>{{ record.date }}</td>
                     <td>{{ record.patient_name }}</td>
-                    <td>{{ record.doctor_name }}</td>
+                    <td>{{ record.doctor_name }}{% if record.doctor_hospital %} ({{ record.doctor_hospital }}){% endif %}</td>
                     <td>{{ record.diagnosis }}</td>
                     <td>{{ record.Symptoms }}</td>
                 </tr>

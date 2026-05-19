@@ -17,7 +17,7 @@ ganache_url = os.getenv("GANACHE_URL", "HTTP://127.0.0.1:7545")
 web3 = Web3(Web3.HTTPProvider(ganache_url))
 
 # Load the contract details
-contract_address = '0x3BbC3dfEFBd7C0aAaBd4eE3246C466F7529A28D5'
+contract_address = '0x331C4A99143CF4796304E0323923bAC2Ea091049'
 contract_abi = json.loads(os.getenv("ABI"))
 
 # Set up the contract instance
@@ -157,9 +157,18 @@ def store_lab_report(request):
             signed_txn = web3.eth.account.sign_transaction(txn, private_key)
             txn_hash = web3.eth.send_raw_transaction(signed_txn.raw_transaction)
 
+            print(f"\n=== LAB REPORT STORED ON BLOCKCHAIN ===")
+            print(f"Access Code  : {report_data['accessCode']}")
+            print(f"Transaction  : {txn_hash.hex()}")
+            print(f"Gas Limit    : {txn['gas']}")
+            print(f"Gas Price    : {txn['gasPrice']}")
+            print(f"Sender       : {sender_address}")
+            print(f"=========================================\n")
+
             return JsonResponse({'tx_hash': txn_hash.hex()}, status=200)
 
         except Exception as e:
+            print(f"\n!!! BLOCKCHAIN ERROR: {e} !!!\n")
             return JsonResponse({'error': str(e)}, status=500)
 
     return JsonResponse({'error': 'Invalid request method'}, status=400)

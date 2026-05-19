@@ -1,11 +1,16 @@
 # billing/forms.py
 from django import forms
+from django.core.validators import RegexValidator
 from .models import Billing, AccountantProfile
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import Insurance
-# from doctor.models import Clinic
-# Form for the User account (login details)
+
+phone_validator = RegexValidator(
+    regex=r'^\d{10}$',
+    message='Phone number must be exactly 10 digits.'
+)
+
 class AccountantUserForm(UserCreationForm):
     email = forms.EmailField(required=True)
 
@@ -22,14 +27,15 @@ class BillingForm(forms.ModelForm):
         ]
 
 
-# Form for the Accountant Profile details
 class AccountantProfileForm(forms.ModelForm):
-    # Make the clinic a dropdown of existing clinics
-    # clinic = forms.ModelChoiceField(queryset=Clinic.objects.all(), empty_label="-- Select a Clinic --")
+    phone = forms.CharField(
+        max_length=10,
+        validators=[phone_validator],
+        widget=forms.TextInput(attrs={'placeholder': '10-digit mobile number', 'maxlength': '10'})
+    )
     
     class Meta:
         model = AccountantProfile
-        # Use the fields from your new model
         fields = [
             'phone',
             'email',
@@ -37,6 +43,14 @@ class AccountantProfileForm(forms.ModelForm):
             'department',
             'profile_pic'
         ]
+
+    def clean_phone(self):
+        phone = self.cleaned_data.get('phone')
+        if not phone.isdigit():
+            raise forms.ValidationError('Phone number must contain only digits.')
+        if len(phone) != 10:
+            raise forms.ValidationError('Phone number must be exactly 10 digits.')
+        return phone
 
 class BillUpdateForm(forms.ModelForm):
     # We define the insurance_claim field here to control its queryset

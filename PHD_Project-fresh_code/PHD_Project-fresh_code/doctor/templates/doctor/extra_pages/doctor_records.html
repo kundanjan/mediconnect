@@ -13,7 +13,7 @@
     
     
     
-        <h5><b>Doctor:</b>{{report.doctor_name}}</h5>
+        <h5><b>Doctor:</b>{{report.doctor_name}}{% if report.doctor_hospital %} ({{ report.doctor_hospital }}){% endif %}</h5>
         <h5>Symptoms</h5>
         <p>{{report.Symptoms}}</p>
         <h5>Diagnosis</h5>

@@ -12,6 +12,7 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Name</th>
+                    <th scope="col">Hospital</th>
                     <th scope="col">Specialization</th>
                     <th scope="col">Email</th>
                     <th scope="col">Phone</th>
@@ -22,6 +23,7 @@
                 <tr>
                     <th scope="row">{{ forloop.counter }}</th>
                     <td>{{ doctor.name }}</td>
+                    <td>{{ doctor.hospital_name|default:"" }}</td>
                     <td>{{ doctor.Specialisation }}</td>
                     <td>{{ doctor.doctor.email }}</td>
                     <td>{{ doctor.phone }}</td>

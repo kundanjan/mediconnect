@@ -69,6 +69,7 @@ def create_doctorprofile(request):
                 "college": doctor.College,
                 "degree": doctor.Degree,
                 "currentPlaceOfWork": doctor.Current_place_of_work,
+                "hospitalName": doctor.hospital_name or '',
                 "yearOfCompletion": doctor.Year_of_completion,
                 "registrationNumber": doctor.Registration_Number,
                 "registrationCouncil": doctor.Registration_Council,
@@ -151,6 +152,13 @@ def pat_profile(request, p):
     pending_labtests = LabTest.objects.filter(patient=subject, status='Pending')
     approved_labtests = LabTest.objects.filter(patient=subject, status='Approved')
 
+    for report in all_reports:
+        try:
+            doc_profile = DoctorProfile.objects.get(id=report.doctor_id)
+            report.doctor_hospital = doc_profile.hospital_name
+        except DoctorProfile.DoesNotExist:
+            report.doctor_hospital = ''
+
     
     # for report in all_reports:
     #     des = report.medication
@@ -186,6 +194,7 @@ def newReport(request,p):
 
     obj = {
         'doctor_name': doctor.name,
+        'hospital_name': doctor.hospital_name,
         'patient_name': patient.name,
         'date': date,
         "docid": doctor.id,
@@ -429,10 +438,11 @@ def view_all_billings(request):
 def view_all_medical(request):
     medical_records = Records.objects.all().order_by('-id')
     patient_map = {p.id: p.name for p in PatientProfile.objects.filter(id__in=[r.patient_id for r in medical_records])}
-    doctor_map = {d.id: d.name for d in DoctorProfile.objects.filter(id__in=[r.doctor_id for r in medical_records])}
+    doctor_map = {d.id: {'name': d.name, 'hospital': d.hospital_name} for d in DoctorProfile.objects.filter(id__in=[r.doctor_id for r in medical_records])}
 
-    # Attach names to each record
     for rec in medical_records:
         rec.patient_name = patient_map.get(rec.patient_id, "Unknown Patient")
-        rec.doctor_name = doctor_map.get(rec.doctor_id, "Unknown Doctor")
+        doc_info = doctor_map.get(rec.doctor_id, {'name': 'Unknown Doctor', 'hospital': ''})
+        rec.doctor_name = doc_info['name']
+        rec.doctor_hospital = doc_info['hospital']
     return render(request, 'doctor/medical_list.html', {'medical_records': medical_records})

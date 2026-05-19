@@ -17,7 +17,7 @@ class DoctorRegisterForm(UserCreationForm):
 class DoctorProfileForm(forms.ModelForm):
     class Meta:
         model = DoctorProfile
-        fields = ('name','phone','Specialisation','City','Registration_Number','Registration_Council','Registration_year','Degree','College','Year_of_completion','Current_place_of_work','Gender','Profile_pic','Aadhar_Number')
+        fields = ('name','phone','Specialisation','City','Registration_Number','Registration_Council','Registration_year','Degree','College','Year_of_completion','Current_place_of_work','hospital_name','Gender','Profile_pic','Aadhar_Number')
         widgets = {
             'Profile_pic': forms.FileInput(),
         }

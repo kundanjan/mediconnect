@@ -24,7 +24,7 @@
                     <td>{{ forloop.counter }}</td>
                     <td>{{ labtest.test_name }}</td>
                     <td>{{ labtest.status }}</td>
-                    <td>{{ labtest.doctor.name }}</td>
+                    <td>{{ labtest.doctor.name }}{% if labtest.doctor.hospital_name %} ({{ labtest.doctor.hospital_name }}){% endif %}</td>
                     <td>{{ labtest.patient.name }}</td>
                     <td>₹{{ labtest.amount }}</td>
                 </tr>

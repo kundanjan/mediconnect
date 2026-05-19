@@ -40,6 +40,7 @@ class DoctorProfile(models.Model):
     Profile_pic = models.ImageField(default = 'doctors_profile_pictures/doctor-img2.png', upload_to = 'doctors_profile_pictures')
     # Medical_registration_proof = models.FileField(upload_to = 'DoctorRegProofs',blank = True)
     Current_place_of_work = models.CharField(max_length=30)
+    hospital_name = models.CharField(max_length=200, blank=True, null=True, help_text='Hospital where the doctor works')
     Aadhar_Number= models.IntegerField(blank=True, help_text='12 digit unique Aadhar Number')
     usertype = models.IntegerField(default = 2)
     # mypatients = models.ManyToManyField(PatientProfile,through = "pats", related_name = "mypat")

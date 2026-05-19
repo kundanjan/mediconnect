@@ -19,7 +19,7 @@
             {% endif %}
 
             {% if lab_test.doctor %}
-                <p><strong>Requested By:</strong> {{ lab_test.doctor.name }}</p>
+                <p><strong>Requested By:</strong> {{ lab_test.doctor.name }}{% if lab_test.doctor.hospital_name %} ({{ lab_test.doctor.hospital_name }}){% endif %}</p>
             {% endif %}
 
             {% if lab_test.labstaff %}

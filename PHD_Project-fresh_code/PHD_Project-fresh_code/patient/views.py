@@ -6,11 +6,14 @@ from .models import PatientProfile,PatientVitals,Records,LabReports
 from centralapp.api_client import store_user_profile, store_lab_report
 import pytesseract
 from PIL import Image
+import os
 import hashlib
+from django.conf import settings
 from django.utils.datastructures import MultiValueDictKeyError
 from django.contrib import messages
 from .forms import InsuranceForm
 from labtest.models import LabTest
+from doctor.models import DoctorProfile
 
 #
 # def auth(str):
@@ -198,6 +201,13 @@ def patientRecords(request):
 
     all_reports = Records.objects.filter(patient_id=patient.id).order_by('-id')
 
+    for report in all_reports:
+        try:
+            doc_profile = DoctorProfile.objects.get(id=report.doctor_id)
+            report.doctor_hospital = doc_profile.hospital_name
+        except DoctorProfile.DoesNotExist:
+            report.doctor_hospital = ''
+
     current_labreports = LabReports.objects.filter(patientl=request.user).order_by('-id')[:1]
 
     lab_tests = LabTest.objects.filter(patient=patient).order_by('-test_date')
@@ -233,11 +243,21 @@ def addLabReports(request):
 
             extracted_text = extract_text_from_image(new_report.labreportfile)
 
-            report_data = {
-                "reportData": extracted_text,
-                "accessCode": PatientProfile.objects.filter(patient=request.user).latest('id').access_code
-            }
-            store_lab_report(report_data)
+            print(f"\n=== OCR EXTRACTED TEXT ===")
+            print(f"Report : {new_report.report_name}")
+            print(f"Patient: {request.user}")
+            print(extracted_text)
+            print(f"==========================\n")
+
+            if extracted_text:
+                try:
+                    report_data = {
+                        "reportData": extracted_text,
+                        "accessCode": PatientProfile.objects.filter(patient=request.user).latest('id').access_code
+                    }
+                    store_lab_report(report_data)
+                except Exception:
+                    pass
 
             return redirect('patient:labreports')
         except MultiValueDictKeyError:
@@ -246,12 +266,16 @@ def addLabReports(request):
     else:
         return redirect('patient:labreports')
 
-def extract_text_from_image(image):
-    pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
-    extracted_text = pytesseract.image_to_string(Image.open(image))
-    # Replace '.' and ',' with newline character '\n'
-    extracted_text = extracted_text.replace('.', '\n').replace(',', '\n')
-    return extracted_text
+def extract_text_from_image(image_field):
+    try:
+        pytesseract.pytesseract.tesseract_cmd = os.path.join(settings.BASE_DIR, 'Tesseract-OCR', 'tesseract.exe')
+        os.environ['TESSDATA_PREFIX'] = os.path.join(settings.BASE_DIR, 'Tesseract-OCR', 'tessdata')
+        from PIL import Image
+        extracted_text = pytesseract.image_to_string(Image.open(image_field.path))
+        return extracted_text.replace('.', '\n').replace(',', '\n')
+    except Exception as e:
+        print(f"OCR error: {e}")
+        return ''
 
 
 @login_required
@@ -286,6 +310,12 @@ def patient_labtest_detail(request, test_id):
 def medications(request):
     patient = PatientProfile.objects.filter(patient=request.user).order_by('-id').first()
     all_reports=Records.objects.filter(patient_id=patient.id).order_by('id').reverse()
+    for report in all_reports:
+        try:
+            doc_profile = DoctorProfile.objects.get(id=report.doctor_id)
+            report.doctor_hospital = doc_profile.hospital_name
+        except DoctorProfile.DoesNotExist:
+            report.doctor_hospital = ''
     
     # print(len(all_reports.reverse()))
     # for report in all_reports:

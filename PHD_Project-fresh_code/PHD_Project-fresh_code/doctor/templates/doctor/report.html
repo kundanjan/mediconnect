@@ -15,7 +15,7 @@
                 <input type="hidden" name="patid" value="{{ details.patid }}">
                 <input type="hidden" name="doctor_name" value="{{ details.doctor_name }}">
                 
-                <p style="font-size: 25px;"><span><b>Doctor Name: </b>{{ details.doctor_name }}</span><span style="float: right;"><b>Date: </b>{{ details.date }}</span></p>
+                <p style="font-size: 25px;"><span><b>Doctor Name: </b>{{ details.doctor_name }}{% if details.hospital_name %} ({{ details.hospital_name }}){% endif %}</span><span style="float: right;"><b>Date: </b>{{ details.date }}</span></p>
                 
                 <!-- Symptoms -->
                 <div class="form-group">

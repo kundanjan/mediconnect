@@ -11,7 +11,7 @@ Account.enable_unaudited_hdwallet_features()
 w3 = Web3(Web3.HTTPProvider("HTTP://127.0.0.1:7545"))
 
 # Account address with which you will deploy the contract
-account_private_key = "0xf5300dd7716a74d559e2ba27ffdccc689aaa36783eb64df4307224c97717a9cf"
+account_private_key = "0x2b905c0a4f096c2d1d0a8e1432b22439a9a273b219d4eaa4f1483c17576cafd4"
 
 # Read the contract source code
 with open("DataStorage.sol", 'r') as file:
@@ -48,7 +48,7 @@ with open("abi.json", 'w') as file:
 MyContract = w3.eth.contract(abi=contract_interface['abi'], bytecode=contract_interface['evm']['bytecode']['object'])
 
 # Get the account address
-account_address = "0x4Dd06BE68483cF90156521d43430D036f6986B7a"
+account_address = "0x3A32e21B25b7d5bbF9FD5Cc0d54B5a1c305d4768"
 
 # Build transaction
 deploy_txn = MyContract.constructor().build_transaction({

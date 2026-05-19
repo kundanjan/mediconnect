@@ -14,7 +14,7 @@
                     {% for report in Reports%}
                         <div class="prescription" style="background: #fff7c8; padding: 1.5em; border: 1px solid #ddd; border-radius: 5px;">
                             <p style="font-size: x-large;">
-                                <span><b>Doctor: </b> {{ report.doctor_name }}</span>
+                                <span><b>Doctor: </b> {{ report.doctor_name }}{% if report.doctor_hospital %} ({{ report.doctor_hospital }}){% endif %}</span>
                                 <span style="float: right;"><b>Date: </b>{{ report.date }}</span>
                             </p>
         

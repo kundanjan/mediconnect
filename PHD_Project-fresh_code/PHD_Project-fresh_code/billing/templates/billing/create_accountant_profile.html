@@ -27,7 +27,7 @@
                     <label for="{{ form.phone.id_for_label }}">Phone Number</label>
                     <div class="input-group">
                         <div class="input-group-prepend"><div class="input-group-text">+91</div></div>
-                        <input type="tel" class="form-control {% if form.phone.errors %}is-invalid{% endif %}" name="phone" id="{{ form.phone.id_for_label }}" placeholder="10-digit mobile number" required>
+                        <input type="tel" class="form-control {% if form.phone.errors %}is-invalid{% endif %}" name="phone" id="{{ form.phone.id_for_label }}" placeholder="10-digit mobile number" maxlength="10" pattern="[0-9]{10}" title="Enter exactly 10 digits" required>
                     </div>
                     {% for error in form.phone.errors %}<div class="invalid-feedback">{{ error }}</div>{% endfor %}
                 </div>

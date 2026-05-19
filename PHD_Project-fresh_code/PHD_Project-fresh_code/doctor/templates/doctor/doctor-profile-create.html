@@ -3,18 +3,18 @@
 {% load crispy_forms_tags %}
 {% block doctorbase %}
 
-<div class="container-fluid py-4"  style="background-image: url('{% static 'patient/Images/medical-backgrnd.jpg'%}');
-            background-size: cover;
-            background-repeat: no-repeat; 
+<div class="container-fluid py-2 py-md-4"  style="background-image: url('{% static 'patient/Images/medical-backgrnd.jpg'%}');
+           background-size: cover;
+           background-repeat: no-repeat; 
            background-position: center; 
-           height: 100vh; 
+           min-height: 100vh; 
            display: flex; 
            align-items: center; 
            justify-content: center;">
-           <div class="card mx-auto" style="width: 95%; max-width: 900px; padding: 30px;">
-            <div class="card-body" style="padding: 20px;">
+           <div class="card mx-auto" style="width: 100%; max-width: 900px; padding: 15px; margin: 10px;">
+            <div class="card-body" style="padding: 10px;">
 
-            <h1 style="font-family: Itim,cursive; text-align: center;" class="mb-3 mx-auto">Enter Personal Information</h1>
+                    <h1 style="font-family: Itim,cursive; text-align: center; font-size: 1.8rem;" class="mb-3 mx-auto">Enter Personal Information</h1>
 
             <!-- edit_doctor_profile.html -->
             <form method="POST" enctype="multipart/form-data">
@@ -109,14 +109,14 @@
 
                     <div class="form-group row">
                         <!-- Registration_Number -->
-                        <div class="col-sm-auto my-2 mx-auto">
+                        <div class="col-12 col-sm my-2">
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="Registration Number" name="Registration_Number" oninput="this.value = this.value.replace(/\D/g, '')">
                             </div>
                         </div>
                         
                         <!-- Specialisation -->
-                        <div class="col-sm-auto my-2 mx-auto">
+                        <div class="col-12 col-sm my-2">
                             <div class="input-group">
                                 <input type="text" class="form-control"  placeholder="Specialisation" name="Specialisation">
                             </div>
@@ -124,14 +124,22 @@
                         
                     </div>
                     
-                    <!-- Current_place_of_work -->
-                    <div class="form-group row">
-                        <div class="col-sm my-2 mx-auto">
-                            <div class="input-group">
-                                <input type="text" class="form-control"  placeholder="Current Place of Work" name="Current_place_of_work">
-                            </div>
+                <!-- Current_place_of_work -->
+                <div class="form-group row">
+                    <div class="col-sm my-2 mx-auto">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Current Place of Work" name="Current_place_of_work">
                         </div>
                     </div>
+                </div>
+                <!-- hospital_name -->
+                <div class="form-group row">
+                    <div class="col-sm my-2 mx-auto">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Hospital Name" name="hospital_name">
+                        </div>
+                    </div>
+                </div>
                     
                     <!-- Registration_Council -->
                     <div class="form-group row" >
@@ -193,8 +201,12 @@
                         });
                     </script>
                  {% endcomment %}
-                    <button class="btn btn-success" type="submit">Save</button>
-                    <button class="btn btn-success" type="reset">Reset</button>
+                    <div class="form-group row">
+                        <div class="col-12 text-center">
+                            <button class="btn btn-success btn-lg px-5" type="submit">Save</button>
+                            <button class="btn btn-secondary btn-lg px-5 ml-2" type="reset">Reset</button>
+                        </div>
+                    </div>
                     
                </form>
         </div>

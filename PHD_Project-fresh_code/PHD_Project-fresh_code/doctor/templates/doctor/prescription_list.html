@@ -21,7 +21,7 @@
                 {% for prescription in prescriptions %}
                 <tr>
                     <td>{{ forloop.counter }}</td>
-                    <td>{{ prescription.doctor.name }}</td>
+                    <td>{{ prescription.doctor.name }}{% if prescription.doctor.hospital_name %} ({{ prescription.doctor.hospital_name }}){% endif %}</td>
                     <td>{{ prescription.patient.name }}</td>
                     <td>{{ prescription.status }}</td>
                     <td>{{ prescription.created_at|date:"d M Y, h:i A" }}</td>
