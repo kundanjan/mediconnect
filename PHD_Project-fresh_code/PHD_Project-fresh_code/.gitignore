@@ -1,6 +1,5 @@
 env
 **/__pycache__/
-**/migrations/00*.py
 # .venv
 # .env
 __pycache__/
