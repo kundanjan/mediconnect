@@ -1,11 +1,19 @@
+import os
 import requests
 import json
 
 BASE_URL = "http://127.0.0.1:8003/"  
+
+
+def _external_api_disabled():
+    value = os.getenv("DISABLE_EXTERNAL_APIS", "").strip().lower()
+    return value in {"1", "true", "yes"}
 def store_user_profile(user_data):
     """
     Store a user profile using the API.
     """
+    if _external_api_disabled():
+        return None
     url = f"{BASE_URL}store_user_profile/"
     
     headers = {
@@ -25,6 +33,8 @@ def get_user_profile(access_code):
     """
     Retrieve a user profile using the API.
     """
+    if _external_api_disabled():
+        return None
     url = f"{BASE_URL}get_user_profile/"
     
     params = {
@@ -44,6 +54,8 @@ def get_user_profile_by_username(username):
     """
     Retrieve a user profile by username using the API.
     """
+    if _external_api_disabled():
+        return None
     url = f"{BASE_URL}get_user_profile_by_username/"
     
     params = {
@@ -63,6 +75,8 @@ def store_lab_report(report_data):
     """
     Store a lab report using the API.
     """
+    if _external_api_disabled():
+        return None
     url = f"{BASE_URL}store_lab_report/"
     
     headers = {
@@ -82,6 +96,8 @@ def get_lab_reports(access_code):
     """
     Retrieve lab reports using the API.
     """
+    if _external_api_disabled():
+        return None
     url = f"{BASE_URL}get_lab_reports/"
     
     params = {
@@ -101,6 +117,8 @@ def store_doctor_profile(doctor_data):
     """
     Store doctor profile using the API.
     """
+    if _external_api_disabled():
+        return None
     url = f"{BASE_URL}store_doctor_profile/"
     
     headers = {
@@ -120,6 +138,8 @@ def get_doctor_profile(username):
     """
     Retrieve doctor profile by username using the API.
     """
+    if _external_api_disabled():
+        return None
     url = f"{BASE_URL}get_doctor_profile/"
     
     params = {
@@ -139,6 +159,8 @@ def get_my_access_code():
     """
     Retrieve the user's access code using the API.
     """
+    if _external_api_disabled():
+        return None
     url = f"{BASE_URL}get_my_access_code/"
     
     response = requests.get(url)

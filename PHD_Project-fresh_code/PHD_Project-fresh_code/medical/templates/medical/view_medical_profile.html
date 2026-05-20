@@ -14,7 +14,11 @@
   <div class="row my-5">
       <!-- Column 1 -->
       <div class="col-md-4 col-sm-12 text-center hi" style="background-color: #f5f1da;"><br>
-          <img class="profile-photo" src="{{ profile.profile_pic.url }}" alt=""><br><br>
+          {% if profile.profile_pic %}
+              <img class="profile-photo" src="{{ profile.profile_pic.url }}" alt=""><br><br>
+          {% else %}
+              <i class="fas fa-user-circle fa-9x text-muted"></i><br><br>
+          {% endif %}
           <div class="row my-3 align-items-center">
               <div class="col-6">
                   <div class="profile-field">

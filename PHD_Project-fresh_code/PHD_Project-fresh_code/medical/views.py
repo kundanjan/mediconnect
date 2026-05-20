@@ -145,23 +145,6 @@ def edit_medical_profile(request):
         form = MedicalProfileForm(instance=profile)
     return render(request, 'medical/edit_medical_profile.html', {'form': form})
 
-# Placeholder function for your external API call, similar to the insurance one
-def store_medical_profile(profile):
-    url = "http://127.0.0.1:8000/api/medical/store" # Example URL
-    try:
-        data = {
-            "username": profile.user.username,
-            "pharmacy_name": profile.pharmacy_name,
-            "phone": profile.phone,
-            "email": profile.email,
-            "address": profile.address
-        }
-        # response = requests.post(url, json=data, timeout=5)
-        # response.raise_for_status()
-        print(f"Data to send to external API: {data}")
-    except Exception as e:
-        print(f"Error sending medical profile data: {e}")
-
 @method_decorator(login_required, name='dispatch')
 class PrescriptionDetailView(DetailView):
     model = Prescription

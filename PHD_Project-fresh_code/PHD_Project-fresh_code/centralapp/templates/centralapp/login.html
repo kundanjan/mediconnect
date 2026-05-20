@@ -82,11 +82,13 @@ min-height: 100vh;">
                                 <input type="password" class="form-control form-control-lg" placeholder="Password" name="password">
                             </div>
                         </div>
-                        <!-- {% for m in messages %}
-                        <div style="border: 1px solid red; text-align:center; padding: 10px; background-color: rgb(255, 137, 137); color: red; font-size: 20px;">
-                            {{ m }}
+                        {% if messages %}
+                        {% for message in messages %}
+                        <div class="alert alert-warning" style="margin-top: 10px;">
+                            {{ message }}
                         </div>
-                        {% endfor %} -->
+                        {% endfor %}
+                        {% endif %}
                         <div style="margin-top: 10px;">
                             <button class="btn btn-success btn-lg" type="submit" value="Login">Sign In</button>
                         </div>

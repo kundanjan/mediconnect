@@ -120,7 +120,7 @@ def edit_insurance_profile(request):
         if form.is_valid():
             form.save()
             messages.success(request, "Profile updated successfully.")
-            return redirect('insurance:insurance_view_profile')
+            return redirect('insurance:view_profile')
     else:
         form = InsuranceProfileForm(instance=insurance)
     return render(request, 'insurance/edit_insurance_profile.html', {'form': form})

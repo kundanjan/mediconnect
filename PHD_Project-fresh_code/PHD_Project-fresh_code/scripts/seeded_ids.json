@@ -1,0 +1,13 @@
+{
+  "clinic_id": 1,
+  "doctor_profile_id": 1,
+  "patient_profile_id": 1,
+  "insurance_id": 1,
+  "lab_test_id": 1,
+  "prescription_id": 1,
+  "medicine_id": 1,
+  "billing_id": 1,
+  "billing_medical_id": 2,
+  "donation_id": 1,
+  "request_id": 1
+}

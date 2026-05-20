@@ -25,7 +25,7 @@ urlpatterns = [
     path('doctor/', include('doctor.urls', namespace='doctor')),
     path('billing/', include('billing.urls')),
     path('medical/', include('medical.urls')),
-    path('', include('doctor.urls')),
+    path('', include(('doctor.urls', 'doctor'), namespace='doctor_root')),
     path('', include('patient.urls')),
     path('login/',authentication_views.LoginView.as_view(template_name='MedicDiary/login.html'),name='login'),
     path('labtests/', include('labtest.urls', namespace='labtest')),
