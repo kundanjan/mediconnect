@@ -1,0 +1,7 @@
+env
+**/__pycache__/
+# .venv
+# .env
+__pycache__/
+tesseract-ocr-w64-setup-5.3.0.20221222.exe
+venv

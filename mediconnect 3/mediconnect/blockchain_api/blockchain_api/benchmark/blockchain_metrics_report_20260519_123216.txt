@@ -1,0 +1,40 @@
+==========================================================================================
+  BLOCKCHAIN CLINICAL TRIAL FRAMEWORK - METRICS REPORT
+  Generated: 2026-05-19 12:32:16
+  Network: Ganache (Chain ID: 1337)
+  Contract: 0x3BbC3dfEFBd7C0aAaBd4eE3246C466F7529A28D5
+  Wallet: 0x4Dd06BE68483cF90156521d43430D036f6986B7a
+==========================================================================================
+
+1. TECHNICAL PERFORMANCE
+------------------------------------------------------------------------------------------
+Parameter                                          Value                Unit           
+------------------------------------------------------------------------------------------
+Transaction Throughput (TPS)                       0.10                 TPS            
+Average API Latency                                82.19                ms             
+Average Blockchain Confirmation Latency            3.44                 ms             
+Average Execution Cost (Gas)                       482741               gas units      
+
+2. SECURITY & PRIVACY
+------------------------------------------------------------------------------------------
+Parameter                                          Value                Unit           
+------------------------------------------------------------------------------------------
+Immutability - Tamper Detection                    PASSED                              
+Immutability - Delete/Update Functions             NO                                  
+Data Integrity (SHA-256)                           100%                 detection rate 
+Access Control Effectiveness                       100%                 block rate     
+Average Verification/Block Time                    0.00                 seconds        
+
+3. CLINICAL & OPERATIONAL
+------------------------------------------------------------------------------------------
+Parameter                                          Value                Unit           
+------------------------------------------------------------------------------------------
+Audit Trail Availability                           COMPLETE                            
+Transaction Traceability                           FULL                                
+Consent Management Efficiency                      71.71                ms per consent record
+Data Format Standardization                        JSON / REST                         
+CDISC Compatibility                                0/8                  fields matched 
+
+==========================================================================================
+  END OF REPORT
+==========================================================================================

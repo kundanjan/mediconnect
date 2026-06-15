@@ -1,0 +1,195 @@
+{% extends 'organ_donation/base.html' %}
+{% load static %}
+
+{% block organ_donation_content %}
+<div class="container-fluid">
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <h2 style="color: #24a19c; border-bottom: 3px solid #24a19c; padding-bottom: 10px;">
+                <i class="fas fa-donate"></i> Register Organ Donation
+            </h2>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card" style="box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                <div class="card-header" style="background: linear-gradient(90deg, #24a19c, #cedebd);">
+                    <h5 class="mb-0">Donation Registration Form</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post" novalidate>
+                        {% csrf_token %}
+                        
+                        <div class="form-group">
+                            <label>
+                                <strong>{{ form.organ_type.label }} <span style="color: red;">*</span></strong>
+                            </label>
+                            <div class="organ-type-grid">
+                                {% for radio in form.organ_type %}
+                                <label class="organ-type-card" for="{{ radio.id_for_label }}">
+                                    {{ radio.tag }}
+                                    <div class="card-inner">
+                                        <div class="organ-icon">
+                                            {% with name=radio.choice_label|lower %}
+                                                {% if 'heart' in name %}❤️
+                                                {% elif 'kidney' in name %}🫘
+                                                {% elif 'liver' in name %}🫁
+                                                {% elif 'lung' in name %}🫁
+                                                {% elif 'pancreas' in name %}🔬
+                                                {% elif 'cornea' in name %}👁️
+                                                {% elif 'bone' in name %}🦴
+                                                {% elif 'blood' in name %}🩸
+                                                {% elif 'tissue' in name %}🧬
+                                                {% else %}🫀
+                                                {% endif %}
+                                            {% endwith %}
+                                        </div>
+                                        <div class="organ-name">{{ radio.choice_label }}</div>
+                                    </div>
+                                </label>
+                                {% endfor %}
+                            </div>
+                            {% if form.organ_type.errors %}
+                                <div class="alert alert-danger mt-2">{{ form.organ_type.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group">
+                            <label for="{{ form.blood_type.id_for_label }}">
+                                <strong>{{ form.blood_type.label }}</strong>
+                            </label>
+                            {{ form.blood_type }}
+                            {% if form.blood_type.errors %}
+                                <div class="alert alert-danger mt-2">{{ form.blood_type.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group">
+                            <label for="{{ form.age_at_donation.id_for_label }}">
+                                <strong>{{ form.age_at_donation.label }} <span style="color: red;">*</span></strong>
+                            </label>
+                            {{ form.age_at_donation }}
+                            <small class="form-text text-muted">Must be 18 or older</small>
+                            {% if form.age_at_donation.errors %}
+                                <div class="alert alert-danger mt-2">{{ form.age_at_donation.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group">
+                            <label for="{{ form.health_condition.id_for_label }}">
+                                <strong>{{ form.health_condition.label }} <span style="color: red;">*</span></strong>
+                            </label>
+                            {{ form.health_condition }}
+                            {% if form.health_condition.errors %}
+                                <div class="alert alert-danger mt-2">{{ form.health_condition.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group">
+                            <label for="{{ form.available_from.id_for_label }}">
+                                <strong>{{ form.available_from.label }}</strong>
+                            </label>
+                            {{ form.available_from }}
+                            {% if form.available_from.errors %}
+                                <div class="alert alert-danger mt-2">{{ form.available_from.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group">
+                            <label for="{{ form.notes.id_for_label }}">
+                                <strong>{{ form.notes.label }}</strong>
+                            </label>
+                            {{ form.notes }}
+                            {% if form.notes.errors %}
+                                <div class="alert alert-danger mt-2">{{ form.notes.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        {% if form.non_field_errors %}
+                            <div class="alert alert-danger" role="alert">
+                                {{ form.non_field_errors }}
+                            </div>
+                        {% endif %}
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary" style="background: #24a19c; width: 100%; padding: 10px;">
+                                <i class="fas fa-check"></i> Register Donation
+                            </button>
+                            <a href="{% url 'organ_donation:my_donations' %}" class="btn btn-secondary mt-2" style="width: 100%; padding: 10px;">
+                                <i class="fas fa-times"></i> Cancel
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .form-control, .form-control:focus {
+        border-color: #24a19c;
+    }
+
+    .form-control:focus {
+        box-shadow: 0 0 0 0.2rem rgba(36, 161, 156, 0.25);
+    }
+
+    label {
+        color: #333;
+        margin-bottom: 8px;
+    }
+
+    .organ-type-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 12px;
+        margin-top: 8px;
+    }
+
+    .organ-type-card {
+        position: relative;
+        cursor: pointer;
+    }
+
+    .organ-type-card input[type="radio"] {
+        position: absolute;
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    .card-inner {
+        border: 2px solid #ddd;
+        border-radius: 12px;
+        padding: 16px 8px;
+        text-align: center;
+        transition: all 0.2s ease;
+        background: #fff;
+    }
+
+    .organ-type-card input[type="radio"]:checked ~ .card-inner {
+        border-color: #24a19c;
+        background: #e8f5f4;
+        box-shadow: 0 0 0 3px rgba(36, 161, 156, 0.2);
+    }
+
+    .organ-type-card:hover .card-inner {
+        border-color: #24a19c;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(36, 161, 156, 0.15);
+    }
+
+    .organ-icon {
+        font-size: 28px;
+        margin-bottom: 6px;
+    }
+
+    .organ-name {
+        font-size: 13px;
+        font-weight: 600;
+        color: #333;
+    }
+</style>
+{% endblock %}

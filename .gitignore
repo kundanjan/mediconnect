@@ -1,0 +1,12 @@
+__MACOSX/
+.playwright-mcp/
+*.yaml
+*.png
+venv/
+venv_clean/
+__pycache__/
+*.pyc
+.env
+.DS_Store
+node_modules/
+db.sqlite3

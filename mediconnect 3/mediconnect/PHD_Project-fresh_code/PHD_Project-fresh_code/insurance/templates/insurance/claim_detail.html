@@ -1,0 +1,153 @@
+{% extends 'insurance/base.html' %}
+{% block insurance_base %}
+<div class="container mt-4">
+
+    <div class="card">
+        <div class="card-header">
+            <h4>Claim Details for Policy #{{ insurance.policy_number }}</h4>
+            <p>Patient: {{ insurance.patient.name }}</p>
+            <p>Status: <span class="badge badge-info">{{ insurance.insurance_status }}</span></p>
+        </div>
+        <div class="card-body">
+            
+            <!-- ====== ACTION BUTTONS (Approve/Reject) ====== -->
+            {% if insurance.insurance_status == 'Pending' %}
+            <div class="mb-4 p-3 border rounded">
+                <h5>Actions</h5>
+                <p>Approve this claim to enable bill payments, or reject it.</p>
+                <form method="POST">
+                    {% csrf_token %}
+                    <button type="submit" name="action" value="approve" class="btn btn-success">Approve Claim</button>
+                    <button type="submit" name="action" value="reject" class="btn btn-danger">Reject Claim</button>
+                </form>
+            </div>
+            {% endif %}
+
+            <!-- ====== ASSOCIATED BILLS SECTION ====== -->
+            <h5>Associated Bills</h5>
+            <table class="table table-bordered">
+                <thead>
+                    <tr><th>Date</th><th>Type</th><th>Amount</th><th>Status</th><th>Action</th></tr>
+                </thead>
+                <tbody>
+                    {% for bill in bills %}
+                    <tr>
+                        <td>{{ bill.date }}</td>
+                        <td>{{ bill.get_billing_type_display }}</td>
+                        <td>₹{{ bill.total_amount|floatformat:2 }}</td>
+                        <td>{% if bill.paid %}<span class="badge badge-success">Paid</span>{% else %}<span class="badge badge-warning">Unpaid</span>{% endif %}</td>
+                        <td>
+                            <form action="{% url 'insurance:pay_bill' bill.pk %}" method="POST" style="display: inline;">
+                                {% csrf_token %}
+                                <input type="hidden" name="insurance_pk" value="{{ insurance.pk }}">
+                                <button type="submit" class="btn btn-sm btn-primary">Pay Bill</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="text-center">No bills associated with this claim yet.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <!-- ====== ADD BILL FORM ====== -->
+            <div class="mt-4 p-3 border rounded bg-light">
+                <div class="text-right mb-2">
+                <a href="{% url 'insurance:create_policy' %}" class="btn btn-success btn-sm">
+                    <i class="fas fa-plus"></i> Create New Policy
+                </a>
+            </div>
+            <h5><i class="fas fa-plus-circle"></i> Add Bill Item</h5>
+                <form method="POST" class="form-inline">
+                    {% csrf_token %}
+                    <div class="form-row w-100">
+                        <div class="form-group col-md-4">
+                            <label class="mr-2">{{ bill_form.billing_type.label }}</label>
+                            {{ bill_form.billing_type }}
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="mr-2">{{ bill_form.total_amount.label }}</label>
+                            {{ bill_form.total_amount }}
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="mr-2">{{ bill_form.doctor.label }}</label>
+                            {{ bill_form.doctor }}
+                        </div>
+                        <div class="form-group col-md-2 d-flex align-items-end">
+                            <button type="submit" name="action" value="add_bill" class="btn btn-success btn-block">
+                                <i class="fas fa-plus"></i> Add Bill
+                            </button>
+                        </div>
+                    </div>
+                    {% if bill_form.errors %}
+                        <div class="text-danger mt-2">{{ bill_form.errors }}</div>
+                    {% endif %}
+                </form>
+            </div>
+
+            <!-- ====== UNASSIGNED BILLS ====== -->
+            {% if unlinked_bills %}
+            <div class="mt-4">
+                <h5>Unassigned Bills (Link on Approval)</h5>
+                <table class="table table-bordered table-sm">
+                    <thead>
+                        <tr><th>Date</th><th>Type</th><th>Amount</th></tr>
+                    </thead>
+                    <tbody>
+                        {% for bill in unlinked_bills %}
+                        <tr>
+                            <td>{{ bill.date }}</td>
+                            <td>{{ bill.get_billing_type_display }}</td>
+                            <td>₹{{ bill.total_amount|floatformat:2 }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="card mt-3">
+        <div class="card-header">
+            <h3>Review Insurance Claim: {{ insurance.policy_number }}</h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <h4>Patient Details</h4>
+                    <ul class="list-group">
+                        <li class="list-group-item"><strong>Name:</strong> {{ insurance.patient.name }}</li>
+                        <li class="list-group-item"><strong>Age:</strong> {{ insurance.patient.age }}</li>
+                        <li class="list-group-item"><strong>Phone:</strong> {{ insurance.patient.phone }}</li>
+                        <li class="list-group-item"><strong>Address:</strong> {{ insurance.patient.address }}</li>
+                    </ul>
+                </div>
+
+                <div class="col-md-6">
+                    <h4>Policy Details</h4>
+                    <ul class="list-group">
+                        <li class="list-group-item"><strong>Provider:</strong> {{ insurance.insurance_provider.company_name }}</li>
+                        <li class="list-group-item"><strong>Policy Type:</strong> {{ insurance.policy_type }}</li>
+                        <li class="list-group-item"><strong>Valid From:</strong> {{ insurance.valid_from|date:"d M, Y" }}</li>
+                        <li class="list-group-item"><strong>Valid To:</strong> {{ insurance.valid_to|date:"d M, Y" }}</li>
+                        <li class="list-group-item"><strong>Coverage Amount:</strong> ₹{{ insurance.coverage_amount|floatformat:2 }}</li>
+                        <li class="list-group-item"><strong>Current Status:</strong> {{ insurance.insurance_status }}</li>
+                    </ul>
+                </div>
+            </div>
+
+            <hr>
+
+            <h4>Policy Document</h4>
+            {% if insurance.policy_document %}
+                <a href="{{ insurance.policy_document.url }}" class="btn btn-info" target="_blank">View Uploaded Document</a>
+            {% else %}
+                <p class="text-muted">No document was uploaded for this policy.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

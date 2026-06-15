@@ -1,0 +1,15 @@
+Category,Metric,Value,Unit,Timestamp,Blockchain,Contract Address,Chain ID
+Technical Performance Metrics,Transaction Throughput (TPS),0.10,TPS,2026-05-19T12:32:16.428041,Ganache,0x3BbC3dfEFBd7C0aAaBd4eE3246C466F7529A28D5,1337
+Technical Performance Metrics,Average API Latency,82.19,ms,2026-05-19T12:32:16.428041,Ganache,0x3BbC3dfEFBd7C0aAaBd4eE3246C466F7529A28D5,1337
+Technical Performance Metrics,Average Blockchain Confirmation Latency,3.44,ms,2026-05-19T12:32:16.428041,Ganache,0x3BbC3dfEFBd7C0aAaBd4eE3246C466F7529A28D5,1337
+Technical Performance Metrics,Average Execution Cost (Gas),482741,gas units,2026-05-19T12:32:16.428041,Ganache,0x3BbC3dfEFBd7C0aAaBd4eE3246C466F7529A28D5,1337
+Security & Privacy Metrics,Immutability - Tamper Detection,PASSED,,2026-05-19T12:32:16.428041,Ganache,0x3BbC3dfEFBd7C0aAaBd4eE3246C466F7529A28D5,1337
+Security & Privacy Metrics,Immutability - Delete/Update Functions,NO,,2026-05-19T12:32:16.428041,Ganache,0x3BbC3dfEFBd7C0aAaBd4eE3246C466F7529A28D5,1337
+Security & Privacy Metrics,Data Integrity (SHA-256),100%,detection rate,2026-05-19T12:32:16.428041,Ganache,0x3BbC3dfEFBd7C0aAaBd4eE3246C466F7529A28D5,1337
+Security & Privacy Metrics,Access Control Effectiveness,100%,block rate,2026-05-19T12:32:16.428041,Ganache,0x3BbC3dfEFBd7C0aAaBd4eE3246C466F7529A28D5,1337
+Security & Privacy Metrics,Average Verification/Block Time,0.00,seconds,2026-05-19T12:32:16.428041,Ganache,0x3BbC3dfEFBd7C0aAaBd4eE3246C466F7529A28D5,1337
+Clinical & Operational Metrics,Audit Trail Availability,COMPLETE,,2026-05-19T12:32:16.428041,Ganache,0x3BbC3dfEFBd7C0aAaBd4eE3246C466F7529A28D5,1337
+Clinical & Operational Metrics,Transaction Traceability,FULL,,2026-05-19T12:32:16.428041,Ganache,0x3BbC3dfEFBd7C0aAaBd4eE3246C466F7529A28D5,1337
+Clinical & Operational Metrics,Consent Management Efficiency,71.71,ms per consent record,2026-05-19T12:32:16.428041,Ganache,0x3BbC3dfEFBd7C0aAaBd4eE3246C466F7529A28D5,1337
+Clinical & Operational Metrics,Data Format Standardization,JSON / REST,,2026-05-19T12:32:16.428041,Ganache,0x3BbC3dfEFBd7C0aAaBd4eE3246C466F7529A28D5,1337
+Clinical & Operational Metrics,CDISC Compatibility,0/8,fields matched,2026-05-19T12:32:16.428041,Ganache,0x3BbC3dfEFBd7C0aAaBd4eE3246C466F7529A28D5,1337

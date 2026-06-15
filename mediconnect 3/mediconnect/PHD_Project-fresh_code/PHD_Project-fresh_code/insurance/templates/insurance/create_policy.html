@@ -1,0 +1,63 @@
+{% extends "insurance/base.html" %}
+{% load static %}
+{% block insurance_base %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header">
+            <h4><i class="fas fa-plus-circle"></i> Create New Insurance Policy</h4>
+        </div>
+        <div class="card-body">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>{{ form.patient.label }} <span style="color:red;">*</span></label>
+                        {{ form.patient }}
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>{{ form.insurance_provider.label }} <span style="color:red;">*</span></label>
+                        {{ form.insurance_provider }}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label>{{ form.policy_number.label }} <span style="color:red;">*</span></label>
+                        {{ form.policy_number }}
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label>{{ form.policy_type.label }} <span style="color:red;">*</span></label>
+                        {{ form.policy_type }}
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label>{{ form.coverage_amount.label }} <span style="color:red;">*</span></label>
+                        {{ form.coverage_amount }}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label>{{ form.valid_from.label }} <span style="color:red;">*</span></label>
+                        {{ form.valid_from }}
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label>{{ form.valid_to.label }} <span style="color:red;">*</span></label>
+                        {{ form.valid_to }}
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label>{{ form.doctor.label }}</label>
+                        {{ form.doctor }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>{{ form.policy_document.label }}</label>
+                    {{ form.policy_document }}
+                </div>
+                {% if form.errors %}
+                    <div class="alert alert-danger">{{ form.errors }}</div>
+                {% endif %}
+                <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> Create Policy</button>
+                <a href="{% url 'insurance:dashboard' %}" class="btn btn-secondary">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'labtest/base.html' %}
+
+{% block labtest_base %}
+<div class="container" style="max-width: 520px; margin: 40px auto;">
+  <h2 class="text-center" style="color: rgb(92, 46, 13);">Lab Staff Login</h2>
+
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }} mt-3">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+
+  <form method="post" class="mt-4">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="id_username">Username</label>
+      <input type="text" name="username" id="id_username" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="id_password">Password</label>
+      <input type="password" name="password" id="id_password" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-primary btn-block">Login</button>
+  </form>
+</div>
+{% endblock %}
