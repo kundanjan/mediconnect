@@ -14,6 +14,7 @@ urlpatterns = [
     path('profile/', views.view_insurance_profile, name='view_profile'),
     path('profile/edit/', views.edit_insurance_profile, name='editInsuranceProfile'),  # ✅ Correct name
     path('dashboard/', views.insurance_dashboard_view, name='dashboard'),
+    path('provider/add/', views.add_insurance_provider, name='add_provider'),
     path('create/', views.create_insurance_policy, name='create_policy'),
     path('claim/<int:pk>/', views.claim_detail_view, name='claim_detail'),
     path('approved/', views.approved_claims_view, name='approved_claims'),

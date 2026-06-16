@@ -8,6 +8,9 @@
         <div class="container">
             <p style="text-align: center;font-family:'Ubuntu';font-size: 3rem;text-align: center; color: rgb(92, 46, 13); ">Pending Insurance</p>
             <div class="text-right mb-3">
+                <a href="{% url 'insurance:add_provider' %}" class="btn btn-primary">
+                    <i class="fas fa-building"></i> Add Insurance Provider
+                </a>
                 <a href="{% url 'insurance:create_policy' %}" class="btn btn-success">
                     <i class="fas fa-plus"></i> Create New Policy
                 </a>

@@ -9,7 +9,7 @@ from billing.models import Billing
 from insurance.forms import InsuranceRegisterForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
-from .forms import InsuranceProfileForm, ClaimBillForm, InsurancePolicyForm
+from .forms import InsuranceProfileForm, ClaimBillForm, InsurancePolicyForm, InsuranceProviderCreateForm
 from django.utils import timezone
 from insurance.models import InsuranceProfile
 from django.contrib.auth.forms import UserCreationForm
@@ -125,6 +125,31 @@ def edit_insurance_profile(request):
     else:
         form = InsuranceProfileForm(instance=insurance)
     return render(request, 'insurance/edit_insurance_profile.html', {'form': form})
+
+@login_required
+def add_insurance_provider(request):
+    if request.method == 'POST':
+        form = InsuranceProviderCreateForm(request.POST, request.FILES)
+        if form.is_valid():
+            try:
+                user = User.objects.create_user(
+                    username=form.cleaned_data['username'],
+                    password=form.cleaned_data['password']
+                )
+                provider = form.save(commit=False)
+                provider.user = user
+                provider.clinic = Clinic.objects.first()
+                provider.save()
+                messages.success(request, f'Insurance provider "{provider.company_name}" created successfully!')
+                return redirect('insurance:dashboard')
+            except Exception as e:
+                messages.error(request, f'Error creating provider: {e}')
+        else:
+            messages.error(request, 'Please correct the errors below.')
+    else:
+        form = InsuranceProviderCreateForm()
+    return render(request, 'insurance/add_provider.html', {'form': form})
+
 
 @login_required
 def create_insurance_policy(request):

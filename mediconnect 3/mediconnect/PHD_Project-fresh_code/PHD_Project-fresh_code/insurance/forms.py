@@ -27,6 +27,29 @@ class InsuranceProfileForm(forms.ModelForm):
         model = InsuranceProfile
         fields = ['company_name', 'phone', 'email', 'address', 'department', 'profile_pic']
 
+
+class InsuranceProviderCreateForm(forms.ModelForm):
+    username = forms.CharField(max_length=150, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Username'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password'}))
+
+    class Meta:
+        model = InsuranceProfile
+        fields = ['company_name', 'phone', 'email', 'address', 'department', 'profile_pic']
+        widgets = {
+            'company_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Company Name'}),
+            'phone': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Phone Number'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Email Address'}),
+            'address': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Address', 'rows': 3}),
+            'department': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Department'}),
+            'profile_pic': forms.FileInput(attrs={'class': 'form-control'}),
+        }
+
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+        if User.objects.filter(username=username).exists():
+            raise forms.ValidationError('Username already taken.')
+        return username
+
 class InsurancePolicyForm(forms.ModelForm):
     class Meta:
         model = Insurance
