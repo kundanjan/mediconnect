@@ -1,8 +1,8 @@
 Django==5.1.5
-django-crispy-forms==1.9.2
-django-filter==2.3.0
-django-import-export==2.5.0
-djangorestframework==3.11.0
+django-crispy-forms
+django-filter
+django-import-export
+djangorestframework
 Pillow==9.5.0
 psycopg2-binary==2.9.9
 pytesseract
