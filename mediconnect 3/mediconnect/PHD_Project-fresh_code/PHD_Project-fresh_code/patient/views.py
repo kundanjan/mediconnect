@@ -3,9 +3,7 @@ from django.contrib.auth import authenticate,login
 from .forms import PatientRegisterForm,PatientProfileForm,PatientVitalsForm
 from django.contrib.auth.decorators import login_required
 from .models import PatientProfile,PatientVitals,Records,LabReports
-from centralapp.api_client import store_user_profile, store_lab_report
-import pytesseract
-from PIL import Image
+from centralapp.api_client import store_user_profile
 import os
 import hashlib
 from django.conf import settings
@@ -14,8 +12,9 @@ from django.contrib import messages
 from .forms import InsuranceForm
 from labtest.models import LabTest
 from doctor.models import DoctorProfile
-
+from .ocr_processor import extract_text_from_image as enhanced_ocr_extract
 #
+
 # def auth(str):
 #     return(hash(str))
 
@@ -241,41 +240,24 @@ def addLabReports(request):
             new_report.labreportfile = request.FILES['file']
             new_report.save()
 
-            extracted_text = extract_text_from_image(new_report.labreportfile)
+            cleaned_text = enhanced_ocr_extract(new_report.labreportfile.path)
 
             print(f"\n=== OCR EXTRACTED TEXT ===")
             print(f"Report : {new_report.report_name}")
             print(f"Patient: {request.user}")
-            print(extracted_text)
+            print(cleaned_text)
             print(f"==========================\n")
 
-            if extracted_text:
-                try:
-                    report_data = {
-                        "reportData": extracted_text,
-                        "accessCode": PatientProfile.objects.filter(patient=request.user).latest('id').access_code
-                    }
-                    store_lab_report(report_data)
-                except Exception:
-                    pass
-
+            messages.success(request, 'Lab report uploaded and processed successfully.')
             return redirect('patient:labreports')
         except MultiValueDictKeyError:
             messages.error(request, 'Please select a file')
             return redirect('patient:labreports')
+        except Exception as e:
+            messages.error(request, f'OCR processing failed: {str(e)}')
+            return redirect('patient:labreports')
     else:
         return redirect('patient:labreports')
-
-def extract_text_from_image(image_field):
-    try:
-        pytesseract.pytesseract.tesseract_cmd = os.path.join(settings.BASE_DIR, 'Tesseract-OCR', 'tesseract.exe')
-        os.environ['TESSDATA_PREFIX'] = os.path.join(settings.BASE_DIR, 'Tesseract-OCR', 'tessdata')
-        from PIL import Image
-        extracted_text = pytesseract.image_to_string(Image.open(image_field.path))
-        return extracted_text.replace('.', '\n').replace(',', '\n')
-    except Exception as e:
-        print(f"OCR error: {e}")
-        return ''
 
 
 @login_required

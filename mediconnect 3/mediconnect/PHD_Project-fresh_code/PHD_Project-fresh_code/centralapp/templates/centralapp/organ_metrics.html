@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organ Metrics - MedicConnect</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f5f5f5;
+            padding: 30px 0;
+            font-family: Arial, sans-serif;
+        }
+        .container-main {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .header {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .header h1 {
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+        .header p {
+            color: #666;
+            font-size: 14px;
+        }
+        .section {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .section h2 {
+            color: #333;
+            font-size: 18px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+        }
+        .section-info {
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 10px;
+            font-style: italic;
+        }
+        .back-link {
+            color: #333;
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+        .back-link:hover { text-decoration: underline; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background: #333;
+            color: white;
+            font-weight: bold;
+        }
+        tr:hover { background: #f9f9f9; }
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .metric-card {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #667eea;
+        }
+        .metric-card.green { border-left-color: #4caf50; }
+        .metric-card.orange { border-left-color: #ff9800; }
+        .metric-card.purple { border-left-color: #9c27b0; }
+        .metric-card.red { border-left-color: #f44336; }
+        .metric-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            color: #666;
+            font-weight: bold;
+        }
+        .metric-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin-top: 5px;
+        }
+        .metric-unit {
+            font-size: 13px;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-main">
+        <a href="{% url 'centralapp:mainpage' %}" class="back-link">← Back to Home</a>
+
+        <div class="header">
+            <h1>Organ Donation Metrics</h1>
+            <p>Real computed metrics from the organ donation database</p>
+        </div>
+
+        <!-- OVERVIEW CARDS -->
+        <div class="section">
+            <h2>Overview</h2>
+            <div class="metric-grid">
+                <div class="metric-card green">
+                    <div class="metric-label">Total Donations</div>
+                    <div class="metric-value">{{ overview.total_donations }}</div>
+                </div>
+                <div class="metric-card purple">
+                    <div class="metric-label">Total Requests</div>
+                    <div class="metric-value">{{ overview.total_requests }}</div>
+                </div>
+                <div class="metric-card orange">
+                    <div class="metric-label">Transactions</div>
+                    <div class="metric-value">{{ overview.total_transactions }}</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Unique Donors</div>
+                    <div class="metric-value">{{ overview.unique_donors }}</div>
+                </div>
+                <div class="metric-card red">
+                    <div class="metric-label">Unique Recipients</div>
+                    <div class="metric-value">{{ overview.unique_recipients }}</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PERFORMANCE METRICS -->
+        <div class="section">
+            <h2>Performance Metrics</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Value</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Matching Accuracy</strong></td>
+                        <td>{{ performance.matching_accuracy_pct }}%</td>
+                        <td>Donations successfully matched out of total</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Match Rate</strong></td>
+                        <td>{{ performance.match_rate_pct }}%</td>
+                        <td>Requests that received a match</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Avg Allocation Time</strong></td>
+                        <td>{{ performance.avg_allocation_time_days }} days</td>
+                        <td>Average time from donation availability to match</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Avg Success Rate</strong></td>
+                        <td>{{ performance.avg_success_rate_pct }}%</td>
+                        <td>Average reported success rate of completed transplants</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Urgent Fulfill Rate</strong></td>
+                        <td>{{ performance.urgent_fulfill_rate_pct }}%</td>
+                        <td>High/critical urgency requests that were fulfilled</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Fairness Index</strong></td>
+                        <td>{{ performance.fairness_index }}</td>
+                        <td>Equitable distribution across recipients (0–1)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- STATUS DISTRIBUTION -->
+        <div class="section">
+            <h2>Status Distribution</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Status</th>
+                        <th>Count</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for status, count in breakdown.status_distribution.donations.items %}
+                    <tr>
+                        <td><strong>Donations</strong></td>
+                        <td>{{ status }}</td>
+                        <td>{{ count }}</td>
+                    </tr>
+                    {% endfor %}
+                    {% for status, count in breakdown.status_distribution.requests.items %}
+                    <tr>
+                        <td><strong>Requests</strong></td>
+                        <td>{{ status }}</td>
+                        <td>{{ count }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- ORGAN DISTRIBUTION -->
+        <div class="section">
+            <h2>Organ Type Distribution</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Organ Type</th>
+                        <th>Donations</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in breakdown.organ_distribution %}
+                    <tr>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.count }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="2" style="text-align:center;color:#999;">No data</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- BLOOD TYPE DISTRIBUTION -->
+        <div class="section">
+            <h2>Blood Type Distribution (Donors)</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Blood Type</th>
+                        <th>Donors</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in breakdown.blood_distribution %}
+                    <tr>
+                        <td>{{ item.type }}</td>
+                        <td>{{ item.count }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="2" style="text-align:center;color:#999;">No data</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- URGENCY DISTRIBUTION -->
+        <div class="section">
+            <h2>Request Urgency Distribution</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Urgency</th>
+                        <th>Requests</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in breakdown.urgency_distribution %}
+                    <tr>
+                        <td>{{ item.label }}</td>
+                        <td>{{ item.count }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

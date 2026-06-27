@@ -24,4 +24,5 @@ urlpatterns = [
     # path('logout/', authentication_views.LogoutView.as_view(template_name='centralapp/logout.html'), name='logout'),
      path('searchBar/',views.searchBar,name='searchBar'),
     path('performance-scores/', views.performance_scores, name='performance_scores'),
+    path('organ-metrics/', views.organ_metrics, name='organ_metrics'),
 ]

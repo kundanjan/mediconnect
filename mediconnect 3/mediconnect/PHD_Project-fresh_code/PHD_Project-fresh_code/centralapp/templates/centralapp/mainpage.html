@@ -84,6 +84,11 @@
                         <i class="fa fa-line-chart"></i> Performance Scores
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'centralapp:organ_metrics' %}" style="background: linear-gradient(45deg, #e96443, #904e95); color: white; border-radius: 20px; padding: 8px 15px !important; margin-left: 10px;">
+                        <i class="fa fa-heartbeat"></i> Organ Metrics
+                    </a>
+                </li>
                 {% if user.is_authenticated %}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -223,6 +228,9 @@
                         <a href="{% url 'centralapp:FAQS' %}" class="useful_links">FAQs</a><br>
                         <a href="{% url 'centralapp:performance_scores' %}" style="display: inline-block; margin-top: 8px; background: linear-gradient(45deg, #667eea, #764ba2); color: white; padding: 8px 16px; border-radius: 20px; font-size: 13px; font-weight: 600; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 5px 15px rgba(102,126,234,0.4)';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';">
                             <i class="fa fa-line-chart"></i> Performance Scores
+                        </a>
+                        <a href="{% url 'centralapp:organ_metrics' %}" style="display: inline-block; margin-top: 8px; margin-left: 8px; background: linear-gradient(45deg, #e96443, #904e95); color: white; padding: 8px 16px; border-radius: 20px; font-size: 13px; font-weight: 600; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 5px 15px rgba(233,100,67,0.4)';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';">
+                            <i class="fa fa-heartbeat"></i> Organ Metrics
                         </a>
                     </p>
                 </div>

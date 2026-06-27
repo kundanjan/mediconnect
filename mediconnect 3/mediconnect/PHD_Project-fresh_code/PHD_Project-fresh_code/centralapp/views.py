@@ -128,6 +128,13 @@ def logout_user(request):
     return redirect("/")
 
 
+def organ_metrics(request):
+    from .organ_metrics import OrganMetrics
+    metrics = OrganMetrics()
+    context = metrics.get_all_metrics()
+    return render(request, 'centralapp/organ_metrics.html', context)
+
+
 def performance_scores(request):
     """Display performance metrics for compression and encryption techniques"""
     from .performance_metrics import PerformanceMetrics

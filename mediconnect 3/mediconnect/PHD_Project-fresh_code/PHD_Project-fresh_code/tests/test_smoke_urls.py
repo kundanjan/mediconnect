@@ -32,6 +32,8 @@ def test_smoke_get_pages(client, seeded_data):
         ("/medical/login/", None),
         ("/billing/register/", None),
         ("/organ_donation/", None),
+        ("/performance-scores/", None),
+        ("/organ-metrics/", None),
 
         ("/patientProfile/", "patient"),
         ("/patientRecords/", "patient"),
@@ -67,6 +69,8 @@ def test_smoke_get_pages(client, seeded_data):
         (f"/insurance/claim/{objects['insurance'].id}/", "insurance"),
         ("/insurance/approved/", "insurance"),
         ("/insurance/rejected/", "insurance"),
+        ("/insurance/policies/", "insurance"),
+        ("/insurance/policies/NAT_SCH_001/", "insurance"),
 
         ("/labtests/profile/", "labstaff"),
         ("/labtests/profile/edit/", "labstaff"),

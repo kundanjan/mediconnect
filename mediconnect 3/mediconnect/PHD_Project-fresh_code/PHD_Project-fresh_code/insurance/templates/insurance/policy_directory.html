@@ -1,0 +1,77 @@
+{% extends "insurance/base.html" %}
+{% load static %}
+{% block insurance_base %}
+<div class="container mt-4">
+    <h2 style="font-family:'Ubuntu'; text-align:center; color: rgb(92, 46, 13);">
+        Indian Health & Welfare Policy Directory
+    </h2>
+
+    {% if summary %}
+    <div class="row text-center mb-4">
+        <div class="col-md-3"><div class="card bg-info text-white"><div class="card-body"><h5>{{ summary.total_policies }}</h5><small>Total Policies</small></div></div></div>
+        <div class="col-md-3"><div class="card bg-success text-white"><div class="card-body"><h5>{{ summary.national_policies }}</h5><small>National</small></div></div></div>
+        <div class="col-md-3"><div class="card bg-warning text-white"><div class="card-body"><h5>{{ summary.state_policies }}</h5><small>State</small></div></div></div>
+        <div class="col-md-3"><div class="card bg-secondary text-white"><div class="card-body"><h5>{{ summary.states_covered|length }}</h5><small>States Covered</small></div></div></div>
+    </div>
+    {% endif %}
+
+    <form method="get" class="form-inline mb-3 justify-content-center">
+        <div class="form-group mx-2">
+            <label for="category" class="mr-2">Category:</label>
+            <select name="category" id="category" class="form-control" onchange="this.form.submit()">
+                <option value="">All Categories</option>
+                {% for cat in categories %}
+                <option value="{{ cat }}" {% if selected_category == cat %}selected{% endif %}>{{ cat }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group mx-2">
+            <label for="state" class="mr-2">State:</label>
+            <select name="state" id="state" class="form-control" onchange="this.form.submit()">
+                <option value="">All States</option>
+                {% for state in states %}
+                <option value="{{ state }}" {% if selected_state == state %}selected{% endif %}>{{ state }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        {% if selected_category or selected_state %}
+        <a href="{% url 'insurance:policy_directory' %}" class="btn btn-outline-secondary ml-2">Clear</a>
+        {% endif %}
+    </form>
+
+    <div class="card">
+        <div class="card-body">
+            {% if policies %}
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Policy ID</th>
+                            <th>Name</th>
+                            <th>Scope</th>
+                            <th>State</th>
+                            <th>Category</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for policy in policies %}
+                        <tr>
+                            <td>{{ policy.policy_id }}</td>
+                            <td>{{ policy.name }}</td>
+                            <td><span class="badge {% if policy.scope == 'National' %}badge-primary{% else %}badge-success{% endif %}">{{ policy.scope }}</span></td>
+                            <td>{{ policy.state_name|default:"—" }}</td>
+                            <td>{{ policy.category }}</td>
+                            <td><a href="{% url 'insurance:policy_detail' policy.policy_id %}" class="btn btn-sm btn-info">View</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <p class="text-center">No policies found matching your filters.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

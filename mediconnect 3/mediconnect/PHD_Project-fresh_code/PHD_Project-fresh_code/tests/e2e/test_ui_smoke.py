@@ -42,6 +42,12 @@ def test_public_pages(page):
     response = page.goto(f"{BASE_URL}/FAQS/")
     _assert_ok(response)
 
+    response = page.goto(f"{BASE_URL}/performance-scores/")
+    _assert_ok(response)
+
+    response = page.goto(f"{BASE_URL}/organ-metrics/")
+    _assert_ok(response)
+
 
 @pytest.mark.e2e
 def test_insurance_login_and_dashboard(page):
@@ -64,6 +70,8 @@ def test_insurance_login_and_dashboard(page):
         f"/insurance/claim/{insurance_id}/",
         "/insurance/approved/",
         "/insurance/rejected/",
+        "/insurance/policies/",
+        "/insurance/policies/NAT_SCH_001/",
     ]:
         response = page.goto(f"{BASE_URL}{url}")
         _assert_ok(response)

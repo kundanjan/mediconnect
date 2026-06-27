@@ -21,7 +21,9 @@ urlpatterns = [
     path('rejected/', views.rejected_claims_view, name='rejected_claims'),
 
     path('claim/<int:pk>/update_status/', views.update_claim_status, name='update_claim_status'),
-    path('bill/<int:pk>/pay/', views.pay_bill_view, name='pay_bill')
+    path('bill/<int:pk>/pay/', views.pay_bill_view, name='pay_bill'),
+    path('policies/', views.policy_directory, name='policy_directory'),
+    path('policies/<str:policy_id>/', views.policy_detail, name='policy_detail'),
     # path('claim/<int:claim_pk>/pay_bill/<int:bill_pk>/', views.pay_bill_by_insurance, name='pay_bill_by_insurance'),
     # path('create/', views.create_insurance, name='create_insurance'),
     # path('all/', views.view_insurances, name='view_insurances'),

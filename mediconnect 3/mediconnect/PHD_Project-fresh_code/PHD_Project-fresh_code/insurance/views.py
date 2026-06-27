@@ -16,6 +16,7 @@ from django.contrib.auth.forms import UserCreationForm
 import requests
 from django.db import transaction
 from billing.models import Billing
+from .policy_manager import IndianHealthPolicyManager
 
 def insurance_register(request):
     if request.method == 'POST':
@@ -342,6 +343,46 @@ def pay_bill_view(request, pk):
         
     # If a user tries to access this URL directly (not via the button), just send them away.
     return redirect('insurance:dashboard')
+@login_required
+def policy_directory(request):
+    manager = IndianHealthPolicyManager()
+    policies = manager.get_all_policies()
+    categories = manager.get_categories()
+    states = manager.get_states()
+    summary = manager.get_coverage_summary()
+
+    category_filter = request.GET.get('category', '')
+    state_filter = request.GET.get('state', '')
+
+    if category_filter:
+        policies = [p for p in policies if p.get('category', '').lower() == category_filter.lower()]
+    if state_filter:
+        policies = [p for p in policies if p.get('scope') == 'State' and p.get('state_name', '').lower() == state_filter.lower()]
+
+    return render(request, 'insurance/policy_directory.html', {
+        'policies': policies,
+        'categories': categories,
+        'states': states,
+        'summary': summary,
+        'selected_category': category_filter,
+        'selected_state': state_filter,
+    })
+
+
+@login_required
+def policy_detail(request, policy_id):
+    manager = IndianHealthPolicyManager()
+    policy = manager.get_policy_by_id(policy_id)
+
+    if not policy:
+        messages.error(request, 'Policy not found.')
+        return redirect('insurance:policy_directory')
+
+    return render(request, 'insurance/policy_detail.html', {
+        'policy': policy,
+    })
+
+
 # @login_required
 # def create_insurance(request, patient_id=None, doctor_id=None):
 #     if request.method == 'POST':

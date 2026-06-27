@@ -547,6 +547,17 @@ Emergency contact: Jane Doe (Spouse), 555-1234.
             end_time = time.time()
             
             execution_time = (end_time - start_time) * 1000
+            if len(preprocessed) == 0 or len(compressed) == 0:
+                results[model_name] = {
+                    'model': model_name,
+                    'status': 'No data',
+                    'original_size': 0,
+                    'compressed_size': 0,
+                    'compression_ratio': 'N/A',
+                    'space_saved_percent': 0,
+                    'execution_time_ms': 0,
+                }
+                continue
             compression_ratio = len(preprocessed) / len(compressed)
             space_saved = ((len(preprocessed) - len(compressed)) / len(preprocessed)) * 100
             

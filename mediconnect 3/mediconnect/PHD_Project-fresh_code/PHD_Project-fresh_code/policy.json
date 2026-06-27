@@ -1,0 +1,230 @@
+{
+  "national_baseline_policies": [
+    {
+      "policy_id": "NAT_SCH_001",
+      "name": "Ayushman Bharat - Pradhan Mantri Jan Arogya Yojana (AB-PMJAY)",
+      "category": "Healthcare & Medical Insurance",
+      "coverage_details": "Cashless health cover of ₹5 Lakh per family per year for secondary and tertiary care hospitalization.",
+      "target_audience": "Low-income, rural families and identified urban workers' families as per SECC data.",
+      "premium_structure": "Fully funded by Central and State Governments."
+    },
+    {
+      "policy_id": "NAT_SCH_002",
+      "name": "Pradhan Mantri Suraksha Bima Yojana (PMSBY)",
+      "category": "Accident Insurance",
+      "coverage_details": "₹2 Lakh for accidental death or total permanent disability; ₹1 Lakh for partial permanent disability.",
+      "target_audience": "All individual bank account holders aged between 18 and 70 years.",
+      "premium_structure": "₹20 per annum (Auto-debited from bank account)."
+    },
+    {
+      "policy_id": "NAT_SCH_003",
+      "name": "Pradhan Mantri Jeevan Jyoti Bima Yojana (PMJJBY)",
+      "category": "Life Insurance",
+      "coverage_details": "Term life insurance cover of ₹2 Lakh payable to the nominee upon the death of the insured due to any reason.",
+      "target_audience": "All individual bank account holders aged between 18 and 50 years.",
+      "premium_structure": "₹436 per annum (Auto-debited from bank account)."
+    },
+    {
+      "policy_id": "NAT_SCH_004",
+      "name": "Indira Gandhi National Old Age Pension Scheme (IGNOAPS)",
+      "category": "Social Security & Pension",
+      "coverage_details": "Monthly financial pension assistance ranging from ₹200 to ₹500+ depending on the beneficiary's age bracket.",
+      "target_audience": "Senior citizens aged 60 years or above living Below the Poverty Line (BPL).",
+      "premium_structure": "Fully funded by Government welfare funds."
+    },
+    {
+      "policy_id": "NAT_SCH_005",
+      "name": "Indira Gandhi National Widow Pension Scheme (IGNWPS)",
+      "category": "Social Security & Pension",
+      "coverage_details": "Monthly financial pension assistance of ₹300 for sustenance and living support.",
+      "target_audience": "BPL widows aged between 40 and 79 years.",
+      "premium_structure": "Fully funded by Government welfare funds."
+    },
+    {
+      "policy_id": "NAT_SCH_006",
+      "name": "Indira Gandhi National Disability Pension Scheme (IGNDPS)",
+      "category": "Social Security & Pension",
+      "coverage_details": "Monthly financial pension assistance of ₹300 for living support.",
+      "target_audience": "BPL individuals aged 18-79 with a severe or multiple disability level of 80% or higher.",
+      "premium_structure": "Fully funded by Government welfare funds."
+    },
+    {
+      "policy_id": "NAT_SCH_007",
+      "name": "National Food Security Act (NFSA) / Ration Card Schemes",
+      "category": "Food Security & Welfare",
+      "coverage_details": "Entitilement to highly subsidized food grains (Rice, Wheat, Coarse grains) distributed via the Public Distribution System (PDS).",
+      "target_audience": "Priority Households (PHH) and Antyodaya Anna Yojana (AAY) card holders.",
+      "premium_structure": "Subsidized state commodity rates."
+    }
+  ],
+  "states_welfare_policies": [
+    {
+      "state_name": "Haryana",
+      "state_code": "HR",
+      "policies": [
+        {
+          "policy_id": "HR_SCH_001",
+          "name": "Chirayu Ayushman Haryana",
+          "category": "Healthcare & Medical Insurance",
+          "coverage_details": "Cashless medical insurance coverage expanding on the central PMJAY foundation, offering up to ₹5 Lakh per family per year across empanelled hospitals.",
+          "target_audience": "Families with verified state demographic records falling within designated income categories.",
+          "premium_structure": "100% premium paid by the State Government for eligible categories."
+        },
+        {
+          "policy_id": "HR_SCH_002",
+          "name": "Old Age Samman Allowance Scheme",
+          "category": "Social Security & Pension",
+          "coverage_details": "Monthly financial assistance allowance of ₹3,000 to senior citizens to maintain livelihood.",
+          "target_audience": "Domicile residents of Haryana aged 60 years or older whose combined family income is within state guidelines.",
+          "premium_structure": "State welfare funded."
+        }
+      ]
+    },
+    {
+      "state_name": "West Bengal",
+      "state_code": "WB",
+      "policies": [
+        {
+          "policy_id": "WB_SCH_001",
+          "name": "Swasthya Sathi Scheme",
+          "category": "Healthcare & Medical Insurance",
+          "coverage_details": "Basic health coverage for secondary and tertiary care up to ₹5 Lakh per family per annum via a smart card issued to the female head of the family.",
+          "target_audience": "All citizens of West Bengal not covered under any other government health insurance scheme.",
+          "premium_structure": "100% funded by the State Government."
+        },
+        {
+          "policy_id": "WB_SCH_002",
+          "name": "Khadya Sathi (Ration Card Scheme)",
+          "category": "Food Security & Welfare",
+          "coverage_details": "Provision of highly subsidized or free food grains (Rice and Wheat) to targeted digital ration card holders.",
+          "target_audience": "Antyodaya Anna Yojana (AAY) and Special Priority Households (SPHH) in West Bengal.",
+          "premium_structure": "Fully subsidized by the state."
+        },
+        {
+          "policy_id": "WB_SCH_003",
+          "name": "Lakshmir Bhandar",
+          "category": "Social Security & Financial Assistance",
+          "coverage_details": "Direct monthly financial cash transfer support of ₹1,000 for General category and ₹1,200 for SC/ST families.",
+          "target_audience": "Female heads of households aged between 25 and 60 years.",
+          "premium_structure": "State welfare funded."
+        }
+      ]
+    },
+    {
+      "state_name": "Maharashtra",
+      "state_code": "MH",
+      "policies": [
+        {
+          "policy_id": "MH_SCH_001",
+          "name": "Mahatma Jyotirao Phule Jan Arogya Yojana (MJPJAY)",
+          "category": "Healthcare & Medical Insurance",
+          "coverage_details": "Cashless health insurance cover up to ₹5 Lakh per family per year for designated medical treatments and surgeries across empanelled hospitals.",
+          "target_audience": "Holders of Yellow/Orange Ration Cards, farmers from distressed districts, and vulnerable families.",
+          "premium_structure": "100% premium paid by the State Government."
+        },
+        {
+          "policy_id": "MH_SCH_002",
+          "name": "Sanjay Gandhi Niradhar Anudan Yojana",
+          "category": "Social Security & Pension",
+          "coverage_details": "Monthly pension support of ₹1,500 to individuals incapable of earning their livelihood.",
+          "target_audience": "Destitute persons, blind, disabled, orphans, and women suffering from critical illnesses below poverty line.",
+          "premium_structure": "State welfare funded."
+        }
+      ]
+    },
+    {
+      "state_name": "Karnataka",
+      "state_code": "KA",
+      "policies": [
+        {
+          "policy_id": "KA_SCH_001",
+          "name": "Yeshasvini Health Insurance Scheme",
+          "category": "Healthcare & Medical Insurance",
+          "coverage_details": "Cashless medical insurance coverage for over 2,100 surgical procedures at network hospitals.",
+          "target_audience": "Rural and urban cooperative society members, farmers, and peasants in Karnataka.",
+          "premium_structure": "Subsidized low-cost contribution with state backing."
+        },
+        {
+          "policy_id": "KA_SCH_002",
+          "name": "Anna Bhagya Scheme (Ration Welfare)",
+          "category": "Food Security & Welfare",
+          "coverage_details": "Distribution of 5 kg of free rice per person per month along with cash transfers (DBT) for the additional 5 kg component.",
+          "target_audience": "Below Poverty Line (BPL) and Antyodaya Anna Yojana (AAY) cardholders.",
+          "premium_structure": "Fully subsidized by the state."
+        }
+      ]
+    },
+    {
+      "state_name": "Gujarat",
+      "state_code": "GJ",
+      "policies": [
+        {
+          "policy_id": "GJ_SCH_001",
+          "name": "Mukhyamantri Amrutam (MA) Yojana",
+          "category": "Healthcare & Medical Insurance",
+          "coverage_details": "Family floater health insurance coverage up to ₹3 Lakh per annum for tertiary care and critical illnesses (cardiac, renal, neuro, burns).",
+          "target_audience": "Lower-income groups and families living below the poverty line in Gujarat.",
+          "premium_structure": "Fully funded by the Gujarat State Government."
+        },
+        {
+          "policy_id": "GJ_SCH_002",
+          "name": "Anna Brahma Yojana",
+          "category": "Food Security & Welfare",
+          "coverage_details": "Provision of free food grains to eligible marginalized beneficiaries who do not have a stable source of income.",
+          "target_audience": "Migrant laborers and poorest citizens without formal document access.",
+          "premium_structure": "State welfare funded."
+        }
+      ]
+    },
+    {
+      "state_name": "Tamil Nadu",
+      "state_code": "TN",
+      "policies": [
+        {
+          "policy_id": "TN_SCH_001",
+          "name": "Chief Minister's Comprehensive Health Insurance Scheme (CMCHIS)",
+          "category": "Healthcare & Medical Insurance",
+          "coverage_details": "Cashless health care up to ₹5 Lakh per family per year for secondary/tertiary hospitalisation.",
+          "target_audience": "Residents of Tamil Nadu with an annual household income below specified limits.",
+          "premium_structure": "100% premium borne by the State Government."
+        },
+        {
+          "policy_id": "TN_SCH_002",
+          "name": "Universal Public Distribution System (UPDS)",
+          "category": "Food Security & Welfare",
+          "coverage_details": "Supply of free rice to all rice-option ration cardholders alongside highly subsidized sugar, pulses, and oil.",
+          "target_audience": "All eligible resident cardholders of Tamil Nadu without strict income distinctions.",
+          "premium_structure": "State-funded universal subsidy."
+        }
+      ]
+    },
+    {
+      "state_name": "Rajasthan",
+      "state_code": "RJ",
+      "policies": [
+        {
+          "policy_id": "RJ_SCH_001",
+          "name": "Mukhyamantri Ayushman Arogya Yojana (MAAY)",
+          "category": "Healthcare & Medical Insurance",
+          "coverage_details": "Universal health insurance model providing cashless insurance coverage of up to ₹25 Lakh per family per year for secondary and tertiary care medical conditions.",
+          "target_audience": "All permanent resident families of Rajasthan (Free for BPL, NFSA, and small farmers; nominal subscription for others).",
+          "premium_structure": "Fully funded or subsidized by the State Government depending on tier."
+        }
+      ]
+    },
+    {
+      "state_name": "Kerala",
+      "state_code": "KL",
+      "policies": [
+        {
+          "policy_id": "KL_SCH_001",
+          "name": "Karunya Arogya Suraksha Padhathi (KASP)",
+          "category": "Healthcare & Medical Insurance",
+          "coverage_details": "Secondary and tertiary care hospitalisation cover of ₹5 Lakh per family per year, aligned concurrently with central frameworks.",
+          "target_audience": "Poor, marginalized, and vulnerable families residing across Kerala.",
+          "premium_structure": "Co-funded or state-backed assurance."
+        }
+      ]
+    }
+  ]
+}

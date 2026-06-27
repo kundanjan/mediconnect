@@ -1,0 +1,63 @@
+{% extends "insurance/base.html" %}
+{% load static %}
+{% block insurance_base %}
+<div class="container mt-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'insurance:policy_directory' %}">Policy Directory</a></li>
+            <li class="breadcrumb-item active">{{ policy.policy_id }}</li>
+        </ol>
+    </nav>
+
+    <div class="card">
+        <div class="card-header {% if policy.scope == 'National' %}bg-primary{% else %}bg-success{% endif %} text-white">
+            <h4>{{ policy.name }}</h4>
+            <small>{{ policy.scope }} Policy {% if policy.state_name %}— {{ policy.state_name }}{% endif %}</small>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <table class="table table-bordered">
+                        <tr><th>Policy ID</th><td>{{ policy.policy_id }}</td></tr>
+                        <tr><th>Category</th><td>{{ policy.category }}</td></tr>
+                        <tr><th>Scope</th><td>{{ policy.scope }}</td></tr>
+                        {% if policy.state_name %}
+                        <tr><th>State</th><td>{{ policy.state_name }}</td></tr>
+                        {% endif %}
+                        {% if policy.state_code %}
+                        <tr><th>State Code</th><td>{{ policy.state_code }}</td></tr>
+                        {% endif %}
+                    </table>
+                </div>
+                <div class="col-md-6">
+                    <table class="table table-bordered">
+                        {% if policy.benefits %}
+                        <tr><th>Benefits</th><td>{{ policy.benefits }}</td></tr>
+                        {% endif %}
+                        {% if policy.coverage %}
+                        <tr><th>Coverage</th><td>{{ policy.coverage }}</td></tr>
+                        {% endif %}
+                        {% if policy.eligibility %}
+                        <tr><th>Eligibility</th><td>{{ policy.eligibility }}</td></tr>
+                        {% endif %}
+                    </table>
+                </div>
+            </div>
+
+            {% if policy.description %}
+            <div class="mt-3">
+                <h5>Description</h5>
+                <p>{{ policy.description }}</p>
+            </div>
+            {% endif %}
+
+            <div class="mt-4 text-center">
+                <a href="{% url 'insurance:policy_directory' %}" class="btn btn-secondary">Back to Directory</a>
+                {% if user.is_authenticated %}
+                <a href="{% url 'insurance:create_policy' %}" class="btn btn-success">Apply for Policy</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
