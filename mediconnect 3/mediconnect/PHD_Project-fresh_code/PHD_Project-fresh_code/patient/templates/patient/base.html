@@ -169,6 +169,7 @@
           <div class="dropdown-menu" aria-labelledby="insuranceDropdown" style="background: green">
             <a class="dropdown-item" href="{% url 'patient:my_insurance' %}">View My Policies</a>
             <a class="dropdown-item" href="{% url 'patient:create_insurance' %}">Submit New Policy</a>
+            <a class="dropdown-item" href="{% url 'insurance:policy_directory' %}">Policy Directory</a>
           </div>
         </li>
         {% comment %} <a href="{% url 'patient:create_insurance' %}">

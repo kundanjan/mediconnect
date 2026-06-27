@@ -1,4 +1,4 @@
-{% extends "patient/base.html" %}  <!-- Assuming you have a base template -->
+{% extends "patient/base.html" %}
 
 {% block patient_base %}
 <div class="tabcontent" id="myPatients" >
@@ -9,23 +9,66 @@
         <div class="container">
             <div class="card">
                 <div class="card-body">
-
-                    <!-- Form starts here -->
                     <form method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
-                        
                         <p>Please fill out your insurance policy information below. It will be sent for review.</p>
-                        
-                        <!-- This will render all form fields as paragraphs -->
+
+                        <div class="form-group">
+                            <label for="policy_selector">Select a Policy Scheme:</label>
+                            <select id="policy_selector" class="form-control" onchange="document.getElementById('id_policy_number').value = this.value">
+                                <option value="">-- Choose a policy scheme --</option>
+                                {% for p in policies %}
+                                <option value="{{ p.policy_id }} - {{ p.name }}">{{ p.name }} ({{ p.policy_id }}) - {{ p.category }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
                         {{ form.as_p }}
 
                         <button type="submit" class="btn btn-primary mt-3">Submit for Review</button>
                     </form>
-                    <!-- Form ends here -->
-                    
                 </div>
             </div>
+
+            {% if policies %}
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h5>Available Policy Schemes</h5>
+                </div>
+                <div class="card-body" style="max-height: 400px; overflow-y: auto;">
+                    <table class="table table-striped table-sm">
+                        <thead>
+                            <tr>
+                                <th>Policy ID</th>
+                                <th>Name</th>
+                                <th>Category</th>
+                                <th>State</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for p in policies %}
+                            <tr>
+                                <td>{{ p.policy_id }}</td>
+                                <td>{{ p.name }}</td>
+                                <td>{{ p.category }}</td>
+                                <td>{{ p.state|default:"National" }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            {% endif %}
         </div>
     </div>
 </div>
+
+<script>
+document.getElementById('policy_selector').addEventListener('change', function() {
+    var policyInput = document.getElementById('id_policy_number');
+    if (this.value) {
+        policyInput.value = this.value;
+    }
+});
+</script>
 {% endblock %}

@@ -359,36 +359,32 @@ def editPatientVitals(request):
 @login_required
 def create_insurance_view(request):
     try:
-        # Get the profile for the currently logged-in patient
         patient_profile = PatientProfile.objects.filter(patient=request.user).order_by('-id').first()
         if not patient_profile:
             raise PatientProfile.DoesNotExist
         print(patient_profile)
     except PatientProfile.DoesNotExist:
         messages.error(request, "Patient profile not found.")
-        return redirect('patient:create_patientprofile') # Or wherever you want to send users without a profile
+        return redirect('patient:create_patientprofile')
+
+    from insurance.policy_manager import IndianHealthPolicyManager
+    policy_mgr = IndianHealthPolicyManager()
+    policies = policy_mgr.get_all_policies()
 
     if request.method == 'POST':
         form = InsuranceForm(request.POST, request.FILES)
         if form.is_valid():
-            # Don't save to the database yet
             insurance = form.save(commit=False)
-            print(insurance)
-            # Set the patient to the current user's profile
             insurance.patient = patient_profile
-            # insurance.
-            # Now save the full object
             insurance.save()
-            
             messages.success(request, 'Your insurance details have been submitted for review.')
-            # NOTE: Change 'patient_dashboard' to your actual dashboard URL name
-            return redirect('patient:patientProfile') 
+            return redirect('patient:patientProfile')
     else:
-        # On a GET request, show a blank form
         form = InsuranceForm()
 
     context = {
-        'form': form
+        'form': form,
+        'policies': policies,
     }
     return render(request, 'patient/create_insurance.html', context)
 
